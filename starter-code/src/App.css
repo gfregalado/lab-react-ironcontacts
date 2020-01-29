@@ -23,23 +23,31 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.container{
+.container {
   display: flex;
   justify-content: center;
 }
 
-.contacts-table{
-  width: 40%
+.contacts-table {
+  width: 50%;
 }
 
-.image-entry{
+.image-entry {
   width: 100px;
 }
 
-.contacts-table th{
-  width: 10%;
+.contacts-table td {
+  width: 30%;
+}
+
+.contacts-table th {
+  height: 10vh;
 }

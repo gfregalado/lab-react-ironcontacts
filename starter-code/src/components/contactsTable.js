@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import contacts from "../contacts.json";
-// import Entry from './tableentry'
+import ContactsArray from "../components/contactsArray";
 
-const TableEntry = ({ picture, name, populairity }) => {
+const TableEntry = ({ picture, name, popularity }) => {
   return (
     <tr>
-      <th>
+      <td>
         <img className="image-entry" src={picture} alt="profile" />
-      </th>
-      <th className="name-entry">{name}</th>
-      <th className="populair-entry">{populairity}</th>
+      </td>
+      <td className="name-entry">{name}</td>
+      <td className="populairity-entry"> {popularity}</td>
     </tr>
   );
 };
 
-const Table = props => {
+const Table = () => {
   return (
     <div className="container">
       <table className="contacts-table">
@@ -23,15 +22,16 @@ const Table = props => {
           <th>Name</th>
           <th>Popularity</th>
         </tr>
-
-        {contacts.map(item => (
-          <TableEntry
-            key={item.id}
-            picture={item.pictureUrl}
-            name={item.name}
-            populairy={item.popularity}
-          />
-        ))}
+        <tbody>
+          {ContactsArray().map(item => (
+            <TableEntry
+              key={item.id}
+              picture={item.pictureUrl}
+              name={item.name}
+              popularity={Math.round(item.popularity * 100) / 100}
+            />
+          ))}
+        </tbody>
       </table>
     </div>
   );
