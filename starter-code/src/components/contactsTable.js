@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import ContactsArray from "../components/contactsArray";
 
 const TableEntry = ({ picture, name, popularity }) => {
@@ -17,11 +17,13 @@ const Table = () => {
   return (
     <div className="container">
       <table className="contacts-table">
-        <tr>
-          <th>Picture</th>
-          <th>Name</th>
-          <th>Popularity</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Popularity</th>
+          </tr>
+        </thead>
         <tbody>
           {ContactsArray().map(item => (
             <TableEntry
