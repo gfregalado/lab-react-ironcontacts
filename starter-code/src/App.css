@@ -26,3 +26,20 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+.contacts-table{
+  width: 40%
+}
+
+.image-entry{
+  width: 100px;
+}
+
+.contacts-table th{
+  width: 10%;
+}
