@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
-import Table from "./components/contactsTable";
+import DynamicTable from "./components/contactsTable";
 import AddButton from "./components/Addbutton";
 
 import "./App.css";
@@ -16,7 +16,7 @@ class App extends Component {
         <br />
         <AddButton />
         <br />
-        <Table />
+        <DynamicTable />
       </div>
     );
   }
