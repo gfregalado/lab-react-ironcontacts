@@ -28,17 +28,51 @@ class DynamicTable extends Component {
   // ============================== Adds a contact to the array State ==============================
 
   addContact = () => {
-    let contactsLoop = [...this.state.contacts];
-    let index = Math.floor(Math.random() * Math.floor(contacts.length));
-    let newEntry = contacts[index];
-
-    if (contactsLoop.includes(newEntry)) {
-      console.log("test");
+    if (contacts.length > 1) {
+      const contactIds = this.state.contacts.map(r => r.id);
+      let uniqueContacts = contacts.filter(r => !contactIds.includes(r.id));
+      let index = Math.floor(Math.random() * Math.floor(uniqueContacts.length));
+      let newEntry = uniqueContacts[index];
+      this.setState({
+        contacts: [newEntry, ...this.state.contacts]
+      });
+      return;
     } else {
-      contactsLoop.unshift(newEntry);
+      return;
     }
+  };
+
+  // ============================== Sort by Name ==============================
+
+  sortByName = () => {
+    let contactsLoop = [...this.state.contacts];
+
+    let sortedContactsByName = contactsLoop.sort(function(a, b) {
+      let textA = a.name.toUpperCase();
+      let textB = b.name.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
     this.setState({
-      contacts: contactsLoop
+      contacts: sortedContactsByName
+    });
+    return;
+  };
+
+  // ============================== Sort by Name ==============================
+
+  sortByPopularity = () => {
+    let contactsLoop = [...this.state.contacts];
+
+    let sortedContactsByPopularity = contactsLoop.sort(function(a, b) {
+      let textA = a.popularity;
+      let textB = b.popularity;
+      return textB < textA ? -1 : textA > textB ? 1 : 0;
+    });
+
+    console.log(sortedContactsByPopularity);
+
+    this.setState({
+      contacts: sortedContactsByPopularity
     });
     return;
   };
@@ -63,8 +97,8 @@ class DynamicTable extends Component {
     return (
       <div>
         <button onClick={this.addContact}>Add Random Contact</button>
-        <button>Sort by Name</button>
-        <button>Sort by Popularity</button>
+        <button onClick={this.sortByName}>Sort by Name</button>
+        <button onClick={this.sortByPopularity}>Sort by Popularity</button>
         <div className="container">
           <table className="contacts-table">
             <thead>
@@ -72,6 +106,7 @@ class DynamicTable extends Component {
                 <th>Picture</th>
                 <th>Name</th>
                 <th>Popularity</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
