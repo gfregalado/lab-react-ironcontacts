@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ContactsArray from "../components/contactsArray";
 import contacts from "../contacts.json";
 
+// ============================== Fetched info from Map to each HTML Element ==============================
+
 const TableEntry = props => {
   return (
     <tr>
@@ -10,6 +12,9 @@ const TableEntry = props => {
       </td>
       <td className="name-entry">{props.name}</td>
       <td className="populairity-entry"> {props.popularity}</td>
+      <td className="delete-button">
+        <button onClick={props.clickToDelete}>delete</button>
+      </td>
     </tr>
   );
 };
@@ -18,7 +23,7 @@ class DynamicTable extends Component {
   constructor() {
     super();
 
-    // ============================== Get's elements from the JSON file to an array ==============================
+    // ================ Get's elements from the JSON file to an array (Imported from contactsArray)========================
 
     this.state = {
       contacts: ContactsArray()
@@ -58,7 +63,7 @@ class DynamicTable extends Component {
     return;
   };
 
-  // ============================== Sort by Name ==============================
+  // ============================== Sort by Popularity ==============================
 
   sortByPopularity = () => {
     let contactsLoop = [...this.state.contacts];
@@ -77,19 +82,16 @@ class DynamicTable extends Component {
     return;
   };
 
-  // ============================== Fetched info from Map to each HTML Element ==============================
+  // ============================== Delete Button Handler ==============================
 
-  TableEntry = props => {
-    return (
-      <tr>
-        <td>
-          <img className="image-entry" src={props.picture} alt="profile" />
-        </td>
-        <td className="name-entry">{props.name}</td>
-        <td className="populairity-entry"> {props.popularity}</td>
-      </tr>
-    );
-  };
+  deleteContactHandler(contactID) {
+    const contactsCopy = [...this.state.contacts];
+    contactsCopy.splice(contactID, 1);
+    this.setState({
+      contacts: contactsCopy
+    });
+    return;
+  }
 
   // ============================== allows to Render the Table in the App ==============================
 
@@ -116,6 +118,9 @@ class DynamicTable extends Component {
                   picture={item.pictureUrl}
                   name={item.name}
                   popularity={Math.round(item.popularity * 100) / 100}
+                  //   delete={this.state.contacts.indexOf(item)}
+                  clickToDelete={() => this.deleteContactHandler(this.state.contacts.indexOf(item))}
+                  //   delete={this.deleteContactHandler(this.state.contacts.indexOf(item))}
                 />
               ))}
             </tbody>
